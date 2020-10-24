@@ -13,20 +13,23 @@ function Calculadora() {
   
   const [
     calcular, 
-    concatenarNumero
-] = CalculadoraService(); 
+    concatenarNumero, 
+    SOMA,
+    SUBTRACAO,
+    DIVISAO,
+    MULTIPLICACAO ] = CalculadoraService(); 
 
   function adicionarNumero(numero) {
-    let resultado;
-    if(operacao === null) {
-      resultado = concatenarNumero(numero1, numero);
-      setNumero1(resultado);
-    } else {
-      resultado = concatenarNumero(numero2, numero);
-      setNumero2(resultado);
-    }
-    setTxtNumeros(resultado);
-  }
+      let resultado;
+      if (operacao === null) {
+        resultado = concatenarNumero(numero1, numero);
+        setNumero1(resultado);
+      } else {
+        resultado = concatenarNumero(numero2, numero);
+        setNumero2(resultado);
+      }
+      setTxtNumeros(resultado);
+   }
 
   function definirOperacao(op) {
     if (operacao === null) {
@@ -66,7 +69,7 @@ function Calculadora() {
     width: '400px'
    }}>
      <Container>
-      
+      <h1>Calculadora React</h1>
       <Row>
          <Col xs="3">
           <Button variant="danger"
@@ -78,6 +81,7 @@ function Calculadora() {
             className="text-right"
             readOnly="readonly"
             value={txtNumeros}
+            data-testid="txtNumeros"
             />
          </Col>
        </Row>
@@ -97,7 +101,7 @@ function Calculadora() {
         </Col>
         <Col>
           <Button variant="warning"
-            onClick={() => definirOperacao('/')}>/</Button>
+            onClick={() => definirOperacao(DIVISAO)}>/</Button>
         </Col>
        </Row>
 
@@ -116,7 +120,7 @@ function Calculadora() {
         </Col>
         <Col>
           <Button variant="warning"
-            onClick={() => definirOperacao('*')}>*</Button>
+            onClick={() => definirOperacao(MULTIPLICACAO)}>*</Button>
         </Col>
        </Row>
 
@@ -135,7 +139,7 @@ function Calculadora() {
         </Col>
         <Col>
           <Button variant="warning"
-            onClick={() => definirOperacao('-')}>-</Button>
+            onClick={() => definirOperacao(SUBTRACAO)}>-</Button>
         </Col>
        </Row>
 
@@ -154,7 +158,7 @@ function Calculadora() {
         </Col>
         <Col>
           <Button variant="warning"
-            onClick={() => definirOperacao('+')}>+</Button>
+            onClick={() => definirOperacao(SOMA)}>+</Button>
         </Col>
        </Row>
 

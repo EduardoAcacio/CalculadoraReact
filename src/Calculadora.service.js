@@ -35,10 +35,9 @@ function CalculadoraService() {
         if(numConcat === '.' && numAtual === '') {
             return '0.';
         }
-        if(numConcat === '.' || numAtual.indexOf('.') > -1) {
+        if(numConcat === '.' && numAtual.indexOf('.') > -1) {
             return numAtual;
         }
-
         return numAtual + numConcat;
     }
 
