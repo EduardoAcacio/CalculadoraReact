@@ -6,6 +6,7 @@ describe('Teste do CalculadoraService', () => {
     
     const [
         calcular, 
+        concatenarNumero,
         SOMA, 
         SUBTRACAO,
         DIVISAO,
@@ -34,7 +35,6 @@ describe('Teste do CalculadoraService', () => {
 
     it('deve retornar 0 para operação inválida.', () => {
         let operaçãoInvalida = calcular(1,4,'%');
-        console.log(operaçãoInvalida);
         expect(operaçãoInvalida).toEqual(0);
     });
 });

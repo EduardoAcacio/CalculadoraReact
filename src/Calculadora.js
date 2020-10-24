@@ -2,18 +2,60 @@ import React, { useState } from 'react';
 import './Calculadora.css';
 import { Jumbotron, Container, Row, Col, Button, Form
 } from 'react-bootstrap';
+import CalculadoraService from './Calculadora.service';
 
 function Calculadora() {
 
   const [txtNumeros, setTxtNumeros] = useState('0');
+  const [numero1, setNumero1] = useState('0');
+  const [numero2, setNumero2] = useState(null);
+  const [operacao, setOperacao] = useState(null);
+  
+  const [
+    calcular, 
+    concatenarNumero
+] = CalculadoraService(); 
 
   function adicionarNumero(numero) {
-    setTxtNumeros(txtNumeros + numero);
-  };
+    let resultado;
+    if(operacao === null) {
+      resultado = concatenarNumero(numero1, numero);
+      setNumero1(resultado);
+    } else {
+      resultado = concatenarNumero(numero2, numero);
+      setNumero2(resultado);
+    }
+    setTxtNumeros(resultado);
+  }
 
   function definirOperacao(op) {
-    setTxtNumeros(op);
-  };
+    if (operacao === null) {
+      setOperacao(op);
+      return;
+    }
+    if (numero2 !== null) {
+      const resultado = calcular(parseFloat(numero1), parseFloat(numero2), operacao);
+      setOperacao(op);
+      setNumero1(resultado.toString());
+      setNumero2(null);
+      setTxtNumeros(resultado.toString());
+    }
+  }
+
+  function acaoCalcular() {
+    if(numero2 === null) {
+      return;
+    }
+    const resultado = calcular(parseFloat(numero1), parseFloat(numero2), operacao);
+    setTxtNumeros(resultado);
+  }
+
+  function limpar() {
+    setTxtNumeros('0');
+    setNumero1('0');
+    setNumero2(null);
+    setOperacao(null);
+  }
 
   return (
    <Jumbotron style={{
@@ -28,7 +70,7 @@ function Calculadora() {
       <Row>
          <Col xs="3">
           <Button variant="danger"
-            onClick={() => setTxtNumeros('0')}>C</Button>
+            onClick={limpar}>C</Button>
          </Col>
          <Col xs="9">
           <Form.Control type="text"
@@ -108,7 +150,7 @@ function Calculadora() {
         </Col>
         <Col>
           <Button variant="success"
-            onClick={() => definirOperacao('=')}>=</Button>
+            onClick={acaoCalcular}>=</Button>
         </Col>
         <Col>
           <Button variant="warning"
